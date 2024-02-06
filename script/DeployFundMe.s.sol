@@ -6,7 +6,7 @@ import {FundMe} from "../src/FundMe.sol";
 import {HelperConfig} from "./HelperConfig.s.sol";
 
 contract DeployFundMe is Script {
-    function run() external returns (FundMe) {
+    function run() external returns (FundMe, HelperConfig) {
         // before broadcast - no real transaction, but after broadcast - real transaction
         HelperConfig helperConfig = new HelperConfig();
         // struct here we need to apply return value->
@@ -15,6 +15,6 @@ contract DeployFundMe is Script {
         vm.startBroadcast();
         FundMe fundMe = new FundMe(ethUsdPriceFeed);
         vm.stopBroadcast();
-        return fundMe;
+        return (fundMe, helperConfig);
     }
 }
